@@ -9,9 +9,15 @@ public class BallDropIOReal implements BallDropIO{
     }
 
     @Override
-    public void resetMotorEncoder() {
+    public void ResetMotorEncoder() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'resetMotorEncoder'");
+    }
+
+    @Override
+    public double GetAngle()
+    {
+        throw new UnsupportedOperationException("Unimplemented method 'GetAngle'");
     }
 
     @Override

@@ -14,7 +14,9 @@ public interface BallDropIO {
     void SetVoltageWheel(double voltage);
     
 //arm movment
-    void resetMotorEncoder();
+    void ResetMotorEncoder();
+
+    double GetAngle();
 
     void SetVoltageArm(double voltage);
 
