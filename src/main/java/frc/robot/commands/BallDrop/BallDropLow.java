@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.BallDrop;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.BallDrop.BallDrop;
@@ -11,30 +11,36 @@ import frc.robot.subsystems.BallDrop.BallDropConstants;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class BallDropLow extends Command {
   BallDrop ballDrop;
+  double timer;
+
   public BallDropLow(BallDrop ballDrop) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.ballDrop = ballDrop;
     addRequirements(ballDrop);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     ballDrop.SetAngle(BallDropConstants.ANGLE_TO_REACH_LOW);
     ballDrop.SetVoltageWheel(BallDropConstants.POWER_TO_REACH);
+
+    timer = 0;
   }
 
+  @Override
+  public void execute(){
+    timer += 0.02;
+  }
 
-
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     ballDrop.SetAngle(BallDropConstants.ANGLE_TO_RESET);
+    ballDrop.SetVoltageWheel(0); 
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(BallDropConstants.ANGLE_TO_REACH_LOW - ballDrop.GetAngle()) < BallDropConstants.ANGLE_TOLERANCE;
+    boolean hasArrived = Math.abs(BallDropConstants.ANGLE_TO_REACH_LOW - ballDrop.GetAngle()) < BallDropConstants.ANGLE_TOLERANCE;
+    boolean enoughTime = timer == BallDropConstants.TIME_TO_STAY_UP;
+    return hasArrived && enoughTime;
   }
 }

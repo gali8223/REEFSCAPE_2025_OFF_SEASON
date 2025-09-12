@@ -18,8 +18,6 @@ public interface BallDropIO {
 
     double GetAngle();
 
-    void SetVoltageArm(double voltage);
-
     void SetAngle(double angle);
     
 //
