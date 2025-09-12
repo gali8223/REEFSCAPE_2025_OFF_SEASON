@@ -1,5 +1,6 @@
 package frc.robot.subsystems.BallDrop;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -9,8 +10,8 @@ import frc.util.MarinersController.MarinersTalonFX;
 import frc.util.MarinersController.MarinersController.ControllerLocation;
 
 public class BallDropIOReal implements BallDropIO{
+
  private final VictorSPX wheelMotor;
-  
  private final MarinersController armMotor;
 
  public BallDropIOReal()
@@ -20,17 +21,24 @@ public class BallDropIOReal implements BallDropIO{
  }
 private MarinersController configureArmMotor(){
         MarinersSparkBase motor;
-        motor = new MarinersSparkBase("Arm Motor", ControllerLocation.RIO, BallDropConstants.ArmMotor.MOTOR_ID, BallDropConstants.ArmMotor.IS_BRUSHLESS, BallDropConstants.ArmMotor.MOTOR_TYPE, BallDropConstants.ArmMotor.ANGLE_PID,);
+        motor = new MarinersSparkBase("Arm Motor", ControllerLocation.RIO, BallDropConstants.ArmMotor.MOTOR_ID, BallDropConstants.ArmMotor.IS_BRUSHLESS, BallDropConstants.ArmMotor.MOTOR_TYPE, BallDropConstants.ArmMotor.ANGLE_PID);
 
         motor.enableSoftLimits(BallDropConstants.ArmMotor.SOFT_MINIMUM, BallDropConstants.ArmMotor.SOFT_MAXIMUM);
 
         motor.setMotorInverted(BallDropConstants.ArmMotor.IS_INVERTED);
         motor.setMotorIdleMode(true);
 
-        // motor.setCurrentLimits(60, 70);
-
         return motor;
     }
+private VictorSPX configureWheelMotor()
+{
+    VictorSPX motor;
+    motor = new VictorSPX(BallDropConstants.DropperMotor.ID);
+    motor.setInverted(BallDropConstants.DropperMotor.IS_INVERTED);
+    motor.setNeutralMode(NeutralMode.Brake);
+    return motor;
+}
+
     @Override
     public void SetVoltageWheel(double voltage) {
         // TODO Auto-generated method stubc
@@ -39,8 +47,7 @@ private MarinersController configureArmMotor(){
 
     @Override
     public void ResetMotorEncoder() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resetMotorEncoder'");
+        armMotor.resetMotorEncoder();
     }
 
     @Override

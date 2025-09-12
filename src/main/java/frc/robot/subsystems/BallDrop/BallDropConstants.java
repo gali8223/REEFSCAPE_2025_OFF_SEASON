@@ -18,6 +18,7 @@ public class BallDropConstants {
     
     public static final double SOFT_MINIMUM = 0;
     public static final double SOFT_MAXIMUM = 0.4;
+    
     public static final ControllerLocation CONTROLLER_LOCATION = ControllerLocation.MOTOR;
     public static final int MOTOR_ID = 24;
     public static final double GEAR_RATIO = 9;
@@ -29,10 +30,11 @@ public class BallDropConstants {
     }
     public static class DropperMotor
     {
-        public static final double POWER_TO_REACH = 0.8; //what power to use for the drop
+        public static final double POWER_TO_REACH = 0.8; 
         public static final boolean IS_INVERTED = true;
         public static final int ID = 20;
         public static final double MAX_DROPPER_POWER = 0.8;
+        public static final boolean BRUSHLESS = true;
     }
 
     public static double HIGH_BALL_DROP_TIME = 1;

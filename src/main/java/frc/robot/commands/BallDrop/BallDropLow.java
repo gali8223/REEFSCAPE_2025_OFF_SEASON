@@ -20,8 +20,8 @@ public class BallDropLow extends Command {
 
   @Override
   public void initialize() {
-    ballDrop.SetAngle(BallDropConstants.ANGLE_TO_REACH_LOW);
-    ballDrop.SetVoltageWheel(BallDropConstants.POWER_TO_REACH);
+    ballDrop.SetAngle(BallDropConstants.ArmMotor.ANGLE_TO_REACH_LOW);
+    ballDrop.SetVoltageWheel(BallDropConstants.ArmMotor.POWER_TO_REACH);
 
     timer = 0;
   }
@@ -33,14 +33,14 @@ public class BallDropLow extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    ballDrop.SetAngle(BallDropConstants.ANGLE_TO_RESET);
+    ballDrop.SetAngle(BallDropConstants.ArmMotor.ANGLE_TO_RESET);
     ballDrop.SetVoltageWheel(0); 
   }
 
   @Override
   public boolean isFinished() {
-    boolean hasArrived = Math.abs(BallDropConstants.ANGLE_TO_REACH_LOW - ballDrop.GetAngle()) < BallDropConstants.ANGLE_TOLERANCE;
-    boolean enoughTime = timer == BallDropConstants.TIME_TO_STAY_UP;
+    boolean hasArrived = Math.abs(BallDropConstants.ArmMotor.ANGLE_TO_REACH_LOW - ballDrop.GetAngle()) < BallDropConstants.ArmMotor.ANGLE_TOLERANCE;
+    boolean enoughTime = timer == BallDropConstants.ArmMotor.TIME_TO_STAY_UP;
     return hasArrived && enoughTime;
   }
 }
