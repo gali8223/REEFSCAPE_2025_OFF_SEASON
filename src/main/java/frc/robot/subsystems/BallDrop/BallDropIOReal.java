@@ -1,12 +1,16 @@
 package frc.robot.subsystems.BallDrop;
 
+import java.lang.ModuleLayer.Controller;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import frc.util.MarinersController.MarinersController;
 import frc.util.MarinersController.MarinersSparkBase;
 import frc.util.MarinersController.MarinersTalonFX;
+import frc.util.MarinersController.MarinersController.ControlMode;
 import frc.util.MarinersController.MarinersController.ControllerLocation;
 
 public class BallDropIOReal implements BallDropIO{
@@ -41,8 +45,7 @@ private VictorSPX configureWheelMotor()
 
     @Override
     public void SetVoltageWheel(double voltage) {
-        // TODO Auto-generated method stubc
-        throw new UnsupportedOperationException("Unimplemented method 'SetVoltageWheel'");
+        armMotor.setVoltage(voltage);
     }
 
     @Override
@@ -53,13 +56,12 @@ private VictorSPX configureWheelMotor()
     @Override
     public double GetAngle()
     {
-        throw new UnsupportedOperationException("Unimplemented method 'GetAngle'");
+        return armMotor.getPosition();
     }
 
     @Override
     public void SetAngle(double angle) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'SetAngle'");
+        armMotor.setReference(angle,ControlMode.Position);
     }
 
     @Override
